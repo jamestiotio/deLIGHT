@@ -13,3 +13,7 @@ Team Members:
 ## Product Description
 
 ## Design Requirements & Choices
+
+## Acknowledgements
+
+Credits to [Prof. Arlindo Silva](https://epd.sutd.edu.sg/people/faculty/arlindo-silva) and [Prof. Daniel Joseph Whittaker](https://asd.sutd.edu.sg/people/faculty/daniel-joseph-whittaker) as our cohort instructors who guided us through every single step of this journey!
