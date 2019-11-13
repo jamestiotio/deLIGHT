@@ -1,4 +1,4 @@
-# DeLight
+# deLIGHT
 **SUTD 2019 03.007 Introduction to Design Project**
 
 _Theme: At Play 2.0_
