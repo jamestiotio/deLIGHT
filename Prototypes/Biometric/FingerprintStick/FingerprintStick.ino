@@ -1,3 +1,9 @@
+/* MODIFIED TO PERFORM FASTER ON OUR SPECIFIC HARDWARE
+ * YOUR MILEAGE MAY VARY.
+ * -> ragulbalaji Nov 2019
+ */
+
+
 #include <M5StickC.h>
 #include "finger.h"
 
@@ -6,10 +12,10 @@ FingerPrint FP_M;
 
 void CleanScreen()
 {
-    M5.Lcd.setTextColor(WHITE);
-    M5.Lcd.fillRect(0,50,400,300,BLACK);
-    M5.Lcd.setCursor(0, 50); 
-    M5.Lcd.setTextSize(2);
+    M5.Lcd.setTextColor(RED);
+    M5.Lcd.fillRect(0,20,400,300,BLACK);
+    M5.Lcd.setCursor(0, 20); 
+    M5.Lcd.setTextSize(1);
     userNum = FP_M.fpm_getUserNum();
     M5.Lcd.print("userNum:");
     M5.Lcd.println(userNum);
@@ -35,6 +41,12 @@ void setup() {
     
 }
 
+void reeconnect(){
+  Serial2.end();
+  delay(300);
+  Serial2.begin(19200, SERIAL_8N1, 33, 32);
+}
+
 //ButtonA: Add user
 //ButtonB: Matching
 void loop(){
@@ -50,12 +62,14 @@ void loop(){
         }
         else if(res1 == ACK_FAIL){
             M5.Lcd.println("Fail");
+            reeconnect();
         }
         else if(res1 == ACK_FULL){
             M5.Lcd.println("Full");
         }
         else{
             M5.Lcd.println("Timeout");
+            reeconnect();
         }
         userNum++;
     }
@@ -73,6 +87,7 @@ void loop(){
       }
       if(res1 == ACK_TIMEOUT){
           M5.Lcd.println("Timeout");
+          reeconnect();
       }
     }
 
