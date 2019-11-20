@@ -5,9 +5,11 @@
 
 #include <M5StickC.h>
 #include "finger.h"
+#include <ESP32Servo.h>
 
 uint8_t userNum; //User number
 FingerPrint FP_M;
+Servo lockservo;
 
 void clearScreen() {
   M5.Lcd.fillRect(0, 0, 400, 300, BLACK);
@@ -59,7 +61,15 @@ void loop() {
     res1 = FP_M.fpm_compareFinger();
     if (res1 == ACK_SUCCESS) {
       M5.Lcd.setTextColor(GREEN);
-      M5.Lcd.println("Success!");
+      M5.Lcd.println("Success!"); // Time to unlock
+
+      lockservo.attach(26);
+      lockservo.write(90);
+      delay(1000);
+      lockservo.write(0);
+      delay(1000);
+      lockservo.detach();
+
     } else if (res1 == ACK_NOUSER) {
       M5.Lcd.println("Try Again :(");
     } else if (res1 == ACK_TIMEOUT) {
