@@ -221,6 +221,8 @@ uint8_t FingerPrint::fpm_compareFinger(void)
         return ACK_TIMEOUT;
         }
         if((FP.RxBuf[Q2] != 0) && (FP.RxBuf[Q3] == 1 || FP.RxBuf[Q3] == 2 || FP.RxBuf[Q3] == 3)) {
+        M5.Lcd.print("User #");
+        M5.Lcd.println(FP.RxBuf[Q2]);
         return ACK_SUCCESS;
         }
     }
