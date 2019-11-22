@@ -7,6 +7,9 @@
 #include "finger.h"
 #include <ESP32Servo.h>
 
+#define LID_CLOSE 160
+#define LID_OPEN 50
+
 uint8_t userNum; //User number
 FingerPrint FP_M;
 Servo lockservo;
@@ -27,10 +30,26 @@ void reeconnect() {
   Serial2.begin(19200, SERIAL_8N1, 33, 32);
 }
 
+void openLid(int pos){ // Do not use
+  lockservo.attach(26);
+  
+  int val = 0;
+  if(pos == 0) val = 150;
+  else if(pos == 1) val = 70;
+  
+  lockservo.write(val);
+  delay(3000);
+  lockservo.detach();
+}
+
 void setup() {
   M5.begin();
   //Serial.begin(115200);
   Serial2.begin(19200, SERIAL_8N1, 33, 32);
+  
+  lockservo.attach(26);
+  lockservo.write(LID_CLOSE);
+  
   M5.Lcd.setRotation(3);
   clearScreen();
   M5.Lcd.setCursor(0, 0);
@@ -63,13 +82,20 @@ void loop() {
       M5.Lcd.setTextColor(GREEN);
       M5.Lcd.println("Success!"); // Time to unlock
 
-      lockservo.attach(26);
-      lockservo.write(90);
-      delay(1000);
-      lockservo.write(0);
-      delay(1000);
-      lockservo.detach();
+      lockservo.write(LID_OPEN);
+      
+      clearScreen();
+      M5.Lcd.setTextColor(RED);
+      M5.Lcd.println("Press Button to Close Lid.");
 
+      do{
+        M5.update();
+        delay(10);
+      }while(!M5.BtnA.wasPressed());
+      
+      lockservo.write(LID_CLOSE);
+
+      M5.Lcd.println("\n<3 <3 <3");
     } else if (res1 == ACK_NOUSER) {
       M5.Lcd.println("Try Again :(");
     } else if (res1 == ACK_TIMEOUT) {
