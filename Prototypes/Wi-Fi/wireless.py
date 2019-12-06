@@ -6,6 +6,9 @@
 import utime
 import network
 import machine
+from ST7735 import TFT
+from sysfont import sysfont
+import math
 
 import esp
 esp.osdebug(None)
@@ -32,6 +35,29 @@ servo_state = 'CLOSED'
 
 # Define button for closing servo
 button = machine.Pin(37, machine.Pin.IN)
+
+
+# Enable LCD power through power management IC (AXP192)
+def enable_lcd_power():
+    i2c = machine.I2C(-1, scl=machine.Pin(22), sda=machine.Pin(21), freq=100000)
+    i2c.writeto_mem(0x34, 0x28, b'\xff')
+    axp192_reg12 = i2c.readfrom_mem(0x34, 0x12, 1)[0]
+    axp192_reg12 |= 0x0c
+    i2c.writeto_mem(0x34, 0x12, bytes([axp192_reg12]))
+
+enable_lcd_power()
+
+# Define variables for LCD access and print title
+spi = machine.SPI(1, baudrate=27000000, polarity=0, phase=0, bits=8, firstbit=machine.SPI.MSB, sck=machine.Pin(13), mosi=machine.Pin(15))  # Set baudrate way high but will be clamped to a maximum in SPI constructor
+tft = TFT(spi,23,18,5)
+tft.initr()  # Initialize LCD screen
+tft.invertcolor(True)  # This is required for RGB to be parsed correctly (for some reason, 0x00 and 0xFF are flipped on normal mode)
+tft.rgb(True)
+tft.rotation(3)  # Rotate to landscape mode
+tft.fill()  # We use black background since text chars would be encapsulated by black background, not transparent
+
+tft.text((20,40), 'deLIGHT', TFT.YELLOW, sysfont, 3, nowrap=True)
+tft.text((20,70), 'Wi-Fi', TFT.CYAN, sysfont, 2, nowrap=True)
 
 
 def station():
@@ -80,17 +106,22 @@ def access_point():
             if servo_state == 'OPEN':
                 servo.duty(LID_CLOSE)
                 if not ap.isconnected():
-                    print('Authorized device disconnected! Closing...')
+                    tft.fill()
+                    tft.text((20,40), 'Authorized device', TFT.RED, sysfont, 1, nowrap=True)
+                    tft.text((20,50), 'disconnected!', TFT.RED, sysfont, 1, nowrap=True)
+                    tft.text((20,70), 'Closing...', TFT.RED, sysfont, 1, nowrap=True)
                 else:
-                    print('Main button pressed! Closing...')
+                    tft.fill()
+                    tft.text((20,40), 'Main button pressed!', TFT.RED, sysfont, 1, nowrap=True)
+                    tft.text((20,70), 'Closing...', TFT.RED, sysfont, 1, nowrap=True)
                 servo_state = 'CLOSED'
                 return
-
-
+    
+    
     def device_scan():
         global servo_state
         while True:
-            if button.value() == 0 and ap.isconnected():  # TODO: Add condition to pass to integrated finger module and do fingerprint method if ap.isconnected() == false
+            if button.value() == 0 and ap.isconnected():  # TODO: Add condition to pass to integrated finger module and do fingerprint method if ap.isconnected() == false (possibly use https://github.com/stinos/micropython-wrap)
                 for i in range(len(ap.status('stations'))):
                     print('Got a connection from %s.' % str(ap.status('stations')[i][0]))
                     
@@ -100,15 +131,18 @@ def access_point():
                         servo_state = 'OPEN'
                         return
     
-    
-    # Main access point loop
-    # TODO: Add LCD screen text indicators
-    # M5Stack module is not available in the current firmware used for the M5 stick
-    # Need to fetch the Lobo MicroPython build
+
     while True:
         while True:
             if button.value() == 0 and servo_state == 'CLOSED':
+                tft.fill()
+                tft.text((20,40), 'Press main button to', TFT.YELLOW, sysfont, 1, nowrap=True)
+                tft.text((20,50), 'open the lighter!', TFT.YELLOW, sysfont, 1, nowrap=True)
                 device_scan()
+                tft.fill()
+                tft.text((20,40), 'Authorized device', TFT.GREEN, sysfont, 1, nowrap=True)
+                tft.text((20,50), 'connected!', TFT.GREEN, sysfont, 1, nowrap=True)
+                tft.text((20,70), 'Opening...', TFT.GREEN, sysfont, 1, nowrap=True)
                 wait_for_release()
                 break
 

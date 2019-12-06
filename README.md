@@ -8,7 +8,7 @@ _Theme: At Play 2.0_
 - Kenneth Chin Choon Hean
 - [Sharmayne Lim Zhiyu](https://github.com/sl194)
 - [Velusamy Sathiakumar Ragul Balaji](https://github.com/ragulbalaji)
-- Mun Jern Wei Ivan
+- [Mun Jern Wei Ivan](https://github.com/monkeychimpanzee)
 
 ## Product Description
 
