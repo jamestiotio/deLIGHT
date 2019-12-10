@@ -1,5 +1,6 @@
 # Wi-Fi Lighter Unlock Script
 # Use ampy to put the code and use rshell to REPL into ESP32 and run the script.
+# Set it to run on boot by renaming the file to main.py
 # Created by James Raphael Tiovalen (2019)
 
 # Import libraries
@@ -30,7 +31,7 @@ sta_password = ''
 pin = machine.Pin(26)
 servo = machine.PWM(pin, freq=50)
 LID_CLOSE = 120
-LID_OPEN = 41
+LID_OPEN = 60
 servo_state = 'CLOSED'
 
 # Define button for closing servo
