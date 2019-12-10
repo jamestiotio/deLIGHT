@@ -33,7 +33,7 @@ class TimerEx:
 
 
     def __init__(self):
-        _thread.start_new_thread(self.timeCb, ())
+        _thread.start_new_thread("timeCb", self.timeCb, ())
         self.timerList = []
     
     def addTimer(self, period, mode, callback):
