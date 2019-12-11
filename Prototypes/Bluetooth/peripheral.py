@@ -1,5 +1,6 @@
 # Bluetooth Lighter Unlock Script
 # Use ampy to put the code and use rshell to REPL into ESP32 and run the script.
+# Set it to run on boot by renaming the file to main.py
 # IMPORTANT NOTE: Pairing is not supported by ubluetooth yet as of the time of writing of this code.
 # Created by James Raphael Tiovalen (2019)
 
