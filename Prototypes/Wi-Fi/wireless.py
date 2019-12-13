@@ -20,7 +20,7 @@ gc.collect()
 # Define Wi-Fi Access Point SSID & Password
 ap_ssid = 'deLIGHTer'
 ap_password = ''
-authorized_users = [b'']  # Extend this to non-hardcoded list
+authorized_users = [b'']  # Extend this to a non-hardcoded whitelist
 
 # Define Wi-Fi Station SSID & Password
 sta_ssid = ''
