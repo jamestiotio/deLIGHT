@@ -1,14 +1,16 @@
-# deLIGHT
+# <img src="./assets/logo.png" width="200">
 **SUTD 2019 03.007 Introduction to Design Project**
 
 _Theme: At Play 2.0_
 
+<img src="./assets/team.JPG" width="500">
+
 19F07 Group 1 Team Members:
 - [James Raphael Tiovalen](https://github.com/jamestiotio) (Team Coordinator & Project Manager)
-- [Sharmayne Lim Zhiyu](https://github.com/sl194) (Creative Director & Lead Artist)
 - [Velusamy Sathiakumar Ragul Balaji](https://github.com/ragulbalaji) (Software Specialist & Technical Advisor)
-- [Mun Jern Wei Ivan](https://github.com/monkeychimpanzee) (Project Advisor & Lead Actor)
 - Kenneth Chin Choon Hean (Chief Mechanical & Electrical Engineer)
+- [Mun Jern Wei Ivan](https://github.com/monkeychimpanzee) (Project Advisor & Lead Actor)
+- [Sharmayne Lim Zhiyu](https://github.com/sl194) (Creative Director & Lead Artist)
 
 Since GitHub limits single file size to 100 MB, the project video could not be uploaded/committed to GitHub. Instead, it is available on YouTube [here](https://youtu.be/HanKIdMyvy4).
 
@@ -18,6 +20,8 @@ Unsupervised children playing with lighters leads to grave consequences (support
 
 ## Product Description
 
+<img src="./assets/product.png" width="500">
+
 The key highlighted features of our product are:
 
 1. **Fingerprint Sensor**
@@ -26,7 +30,7 @@ This capacitive sensor allows us to capture, collect, store and sense fingerprin
 
 2. **M5Stick-C**
 
-This is the big boi that does most of the work. This mini IoT core device is based on the ESP32 chip and is equipped with common features, such as Wi-Fi, Bluetooth, LCD Display, LED, Button, Buzzer, IR Transmitter, Battery and Six-Axis MPU. This allows us to do some cool, unconventional integrations of certain systems that only involve light processing power to the lighter. Such an example would be the simple game feature that would run when an unauthorised fingerprint is detected. Note that the fingerprint detection callback still runs asynchronously while the game is running. The game that we currently implement is a simple low-level adaptation of Flappy Bird with balloons as obstacles. Of course, given more time and effort, more intricate games could potentially be written (although care needs to be taken regarding memory usage and the fact that it is very troublesome to write the graphics and physics drivers from scratch).
+This is the big boi that does most of the work. This mini IoT core device is based on the ESP32 chip and is equipped with common features, such as Wi-Fi, Bluetooth, LCD Display, LED, Button, Buzzer, IR Transmitter, Battery and Six-Axis MPU. This allows us to do some cool, unconventional integrations of certain systems that only involve light processing power to the lighter. Such an example would be the simple **Game Feature** that would run when an unauthorised fingerprint is detected. Note that the fingerprint detection callback still runs asynchronously while the game is running. The game that we currently implement is a simple low-level adaptation of Flappy Bird with balloons as obstacles. Of course, given more time and effort, more intricate games could potentially be written (although care needs to be taken regarding memory usage and the fact that it is very troublesome to write the graphics and physics drivers from scratch). This module also handles the **Wi-Fi Feature** connectivity and processing.
 
 3. **Plasma Lighter**
 
@@ -57,6 +61,18 @@ The lighter is equipped with a detachable hand crank that could be wound to prov
     - Finally, the overall size of the lighter is larger than the usual lighter. This is due to the slightly bulky structure of the M5Stick-C. On the other hand, the M5Stick-C is jam-packed with plenty of features in such a tight space that the temptation to include everything in such an Apple-like compact design is quite high.
     
 5. Our design focus is on rapid prototyping, as well as iterative development and feature testing. Therefore, our code currently should only be used during development and not in a production-level environment.
+
+## Future Work
+
+Several improvements (and new ideas) that could be implemented include:
+
+1. Better reliability/control/safety in terms of precision and accuracy of the magnitude of the electrical current discharge (so as to not overload any components), as well as the overall reliability of the whole electrical circuit. Short-circuits and accidental contacts with live wires/batteries were encountered quite often during testing, which should not be the case.
+
+2. Integration with Siri. M5Stick-C has a microphone that could support this integration. Apple's HAP might be needed for this.
+
+3. An additional security feature in terms of Morse code tapping password detection (?).
+
+4. (Old Idea) 3D Capacitor Pattern Lock (setup of three perpendicular plates).
 
 ## Acknowledgements
 
