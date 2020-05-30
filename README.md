@@ -8,7 +8,7 @@ _Theme: At Play 2.0_
 19F07 Group 1 Team Members:
 - [James Raphael Tiovalen](https://github.com/jamestiotio) (Team Coordinator & Project Manager)
 - [Velusamy Sathiakumar Ragul Balaji](https://github.com/ragulbalaji) (Software Specialist & Technical Advisor)
-- Kenneth Chin Choon Hean (Chief Mechanical & Electrical Engineer)
+- [Kenneth Chin Choon Hean](https://github.com/UrFriendKen) (Chief Mechanical & Electrical Engineer)
 - [Mun Jern Wei Ivan](https://github.com/monkeychimpanzee) (Project Advisor & Lead Actor)
 - [Sharmayne Lim Zhiyu](https://github.com/sl194) (Creative Director & Lead Artist)
 
